@@ -1,8 +1,31 @@
-
-.btn-light{
-    background-color:rgba(248, 168, 18, 0.911); 
+.btn-light {
+    background-color: rgba(248, 168, 18, 0.911);
     color: white;
-    }
-    .prog-comp-btn-box button:hover{
-        background-color: rgba(248, 168, 18, 0.911); 
-    }
+}
+
+.text-align{
+    text-align: center;
+}
+label{
+    font-size: 20px;
+    font-weight: 400;
+}
+.bg{
+    background-color: rgba(248, 168, 18, 0.911);
+    border: none;
+}
+.input{
+    background: url("../../../assets/task_field.png")no-repeat right ;
+    background-size: 26px;
+}
+.bg-image2{
+    background: url("../../../assets/calendar.png") no-repeat right;
+    background-size: 26px;
+}
+.btn-outline-warning{
+    outline: none;
+    border: none;
+}
+.btn-row{
+    margin-top: 40px;
+}

@@ -1,1 +1,16 @@
-<p>progress-task works!</p>
+<div class="container">
+    <div class="row ">
+        <h3>Todays Task</h3>
+        <div class="col-md-4" *ngFor="let item of origData">
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title" style="color:#fdc27d ;">{{item.task_name}}</h5>
+                    <div class="d-flex justify-content-between">
+                        <button>Mark Done</button>
+                        <img src="../../../assets/delete.png" class="delete-icon" alt="delete icon">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TemplateRef } from '@angular/core';
-// import {BsModalService,BsModalRef} from 'ngx-bootstrap/modal'
+
 
 @Component({
   selector: 'app-root',
@@ -9,4 +9,6 @@ import { TemplateRef } from '@angular/core';
 })
 export class AppComponent {
   title = 'ToDo';
+  constructor() { }
+ 
 }
