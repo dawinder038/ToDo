@@ -11,7 +11,24 @@ export class TodoServiceService {
   getProgressTaskApi(payload:any){
     return this.http.get(this.apiUrl+"/tasks?limit="+payload.limit+"&start="+payload.start +"&status="+payload.status)
   }
+
+  getCompletedTaskApi(payload:any){
+    return this.http.get(this.apiUrl+"/tasks?limit="+payload.limit+"&start="+payload.start +"&status="+payload.status)
+  }
+  deleteTaskShowApi(payload:any){
+    return this.http.get(this.apiUrl+"/tasks?limit="+payload.limit+"&start="+payload.start +"&status="+payload.status)
+  }
   postApi(data:any){
     return this.http.post(this.apiUrl+"/task",data)
   }
+  deleteApi(id:any){
+    return this.http.delete(this.apiUrl+"/task"+"/delete/"+id);
+  }
+  getTaskByIdApi(id:any){
+    return this.http.get(this.apiUrl+"/task/{id}?id="+id);
+  }
+  taskDoneApi(data:any){
+    return this.http.post(this.apiUrl+"/task"+"/status",data);
+  }
 }
+

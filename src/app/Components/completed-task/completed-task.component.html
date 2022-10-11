@@ -1,12 +1,12 @@
 <div class="container">
     <div class="row">
         <h3>Todays Task</h3>
-        <div class="col-md-4">
-            <div class="card">
+        <div class="col-md-4" *ngFor="let item of origData">
+            <div class="card mt-4">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title" style="color:#a7e8a9;">Create FireWorks</h5>
-                        <img src="../../../assets/delete.png" class="delete-icon" alt="delete icon">
+                        <h5 class="card-title" style="color:#a7e8a9;">{{item.task_name}}</h5>
+                        <img src="../../../assets/delete.png" class="delete-icon" (click)="deleteTask(item.id)" alt="delete icon">
                     </div>
                 </div>
             </div>

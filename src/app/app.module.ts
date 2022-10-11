@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './Components/home/home.component';
+import { DeleteComponent } from './Components/delete/delete.component';
 
 
 const appRoutes:Routes=[
@@ -26,7 +28,9 @@ const appRoutes:Routes=[
     AsideBarComponent,
     CreateTaskComponent,
     ProgressTaskComponent,
-    CompletedTaskComponent
+    CompletedTaskComponent,
+    HomeComponent,
+    DeleteComponent
   ],
   imports: [
     BrowserModule,

@@ -6,8 +6,9 @@
                 <div class="card-body">
                     <h5 class="card-title" style="color:#fdc27d ;">{{item.task_name}}</h5>
                     <div class="d-flex justify-content-between">
-                        <button>Mark Done</button>
-                        <img src="../../../assets/delete.png" class="delete-icon" alt="delete icon">
+                        <button (click)="markDone(item.id)">Mark Done</button>
+                        <img src="../../../assets/delete.png" class="delete-icon" (click)="deleteTask(item.id)"
+                            alt="delete icon">
                     </div>
                 </div>
             </div>

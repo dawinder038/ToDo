@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ResourceLoader } from '@angular/compiler';
+import { Component, OnInit, ɵLocaleDataIndex } from '@angular/core';
 import { TodoServiceService } from '../../todo-service.service';
 
 @Component({
@@ -8,29 +9,50 @@ import { TodoServiceService } from '../../todo-service.service';
 })
 export class ProgressTaskComponent implements OnInit {
   date: any = "";
-  getData:any="";
-  origData:any="";
+  getData: any = "";
+  origData: any = "";
+  getDataById: any;
+  doneId: any = "";
   constructor(private ToDoService: TodoServiceService) { }
 
   ngOnInit(): void {
-    this.getProgres( )
+    this.getProgres()
   }
   getProgres() {
-   let payload={
-      limit: 10,
+    let payload = {
+      limit: 20,
       start: 1,
       status: 1
     }
     this.ToDoService.getProgressTaskApi(payload).subscribe((result) => {
       console.log(result);
-      this.getData=result;
-      this.origData=this.getData.rows;
+      this.getData = result;
+      this.origData = this.getData.rows;
     });
   }
-  // postData(data:any){
-  //   this.ToDoService.postApi(data).subscribe((result)=>{
-  //     console.log(result);
-  //   })
-  // }
+  deleteTask(id: any) {
+    console.log(id);
+    this.ToDoService.deleteApi(id).subscribe((result) => {
+      console.log(result);
+      this.getProgres();
+    })
 
+  }
+  markDone(id: any) {
+    this.ToDoService.getTaskByIdApi(id).subscribe((result) => {
+      console.log(result);
+      this.getDataById = result;
+      this.doneId = this.getDataById.id;
+      console.log(this.doneId)
+      this.statusUpdate();
+    });
+
+  }
+  statusUpdate() {
+    this.ToDoService.taskDoneApi({ "id": this.doneId, "status": 2 }).subscribe((result) => {
+      console.log("id", this.doneId);
+      console.log(result);
+      this.getProgres();
+    })
+  }
 }
