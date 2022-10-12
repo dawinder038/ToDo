@@ -25,10 +25,13 @@ export class TodoServiceService {
     return this.http.delete(this.apiUrl+"/task"+"/delete/"+id);
   }
   getTaskByIdApi(id:any){
-    return this.http.get(this.apiUrl+"/task/{id}?id="+id);
+    return this.http.get(this.apiUrl+"/task"+"/{id}"+"?id="+id);
   }
   taskDoneApi(data:any){
     return this.http.post(this.apiUrl+"/task"+"/status",data);
+  }
+  editTaskApi(data:any){
+    return this.http.put(this.apiUrl+"/task",data);
   }
 }
 

@@ -1,17 +1,61 @@
 <div class="container">
-    <div class="row ">
-        <h3>Todays Task</h3>
-        <div class="col-md-4" *ngFor="let item of origData">
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h5 class="card-title" style="color:#fdc27d ;">{{item.task_name}}</h5>
-                    <div class="d-flex justify-content-between">
-                        <button (click)="markDone(item.id)">Mark Done</button>
-                        <img src="../../../assets/delete.png" class="delete-icon" (click)="deleteTask(item.id)"
-                            alt="delete icon">
-                    </div>
-                </div>
+  <div class="row">
+    <h3>Today's Task</h3>
+    <div class="col-md-4" *ngFor="let item of origData">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h5 class="card-title" style="color:#fdc27d ;">{{item.task_name}}</h5>
+          <div class="d-flex justify-content-between">
+            <div>
+              <button (click)="markDone(item.id)">Mark Done</button>
             </div>
+            <div class="d-flex">
+              <div>
+                <img src="../../../assets/add_new_task.png" (click)="openModal(template2)"
+                  (click)="getDataById2(item.id)" class="edit-icon" alt="edit">
+              </div>
+              <div>
+                <img src="../../../assets/delete.png" class="delete-icon ms-2" (click)="openModal(template)"
+                  alt="delete icon">
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
+      <ng-template #template>
+        <div class="modal-body text-center">
+          <p>Do You Really Want to Delete?</p>
+          <button type="button" class="btn btn-default" (click)="deleteTask(item.id) " (click)="confirm()">Yes</button>
+          <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+        </div>
+      </ng-template>
     </div>
+  </div>
 </div>
+
+<!-- Model Form Edit Task -->
+<ng-template #template2>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form #editForm="ngForm" (ngSubmit)="editTask(editForm.value)">
+      <div class="mt-2">
+        <div class="mt-2">
+          <label for="edit">Task Name</label>
+          <input class="w-100" type="text" ngModel name="task_name" id="edit">
+        </div>
+        <div class="mt-2">
+          <label for="date">Select Date</label>
+          <input class="w-100" type="date" ngModel name="date" id="date" placeholder="Select Date">
+        </div>
+        <div class="mt-4">
+          <button class="w-100 btn btn-primary" type="submit" (click)="modalRef?.hide()">Edit Task</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</ng-template>

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,TemplateRef } from '@angular/core';
 import { esUsLocale } from 'ngx-bootstrap/chronos';
 import { TodoServiceService } from '../../todo-service.service';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-completed-task',
@@ -8,11 +9,15 @@ import { TodoServiceService } from '../../todo-service.service';
   styleUrls: ['./completed-task.component.scss']
 })
 export class CompletedTaskComponent implements OnInit {
+  modalRef?: BsModalRef;
   getData: any = "";
   origData: any = "";
+  message?: string;
 
-  constructor(private ToDoService: TodoServiceService) { }
-
+  constructor(private ToDoService: TodoServiceService,private modalService: BsModalService) { }
+  openModal(template: TemplateRef<any>) {
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
   ngOnInit(): void {
     this.getCompletedData();
   }
@@ -35,5 +40,13 @@ export class CompletedTaskComponent implements OnInit {
       console.log(result);
       this.getCompletedData();
     })
+  }
+  confirm(): void {
+    this.message = 'Confirmed!';
+    this.modalRef?.hide();
+  }
+  decline(): void {
+    this.message = 'Declined!';
+    this.modalRef?.hide();
   }
 }
