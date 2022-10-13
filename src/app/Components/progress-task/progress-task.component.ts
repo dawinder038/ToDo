@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ɵLocaleDataIndex } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { TodoServiceService } from '../../todo-service.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -10,25 +10,26 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class ProgressTaskComponent implements OnInit {
   modalRef?: BsModalRef;
   message?: string;
-  date: any = "";
-  getData: any = "";
-  origData: any = "";
+  getData: any ;
+  origData: any ;
   getDataById: any;
-  doneId: any = "";
-  edittask: any = "";
+  doneId: any ;
+  edittask: any ;
   editDate: any;
   idNew: any;
   idNew2: any;
-  getDate:any;
-  getDate2:any;
-
+  todayDate:any;
+  array:any[]=[];
   constructor(private ToDoService: TodoServiceService, private modalService: BsModalService) { }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
+
   ngOnInit(): void {
-    this.getProgres()
+    this.todayDate = new Date().toISOString().substring(0, 10);
+    this.getProgres();
   }
+
   getProgres() {
     let payload = {
       limit: 20,
@@ -36,19 +37,22 @@ export class ProgressTaskComponent implements OnInit {
       status: 1
     }
     this.ToDoService.getProgressTaskApi(payload).subscribe((result) => {
-      console.log(result);
+      console.log("result",result);
       this.getData = result;
       this.origData = this.getData.rows;
+      this.array=this.ToDoService.filterdata(this.origData);
+      this.statusUpdate();
     });
   }
+
   deleteTask(id: any) {
     console.log(id);
     this.ToDoService.deleteApi(id).subscribe((result) => {
       console.log(result);
       this.getProgres();
     })
-
   }
+
   markDone(id: any) {
     this.ToDoService.getTaskByIdApi(id).subscribe((result) => {
       console.log(result);
@@ -57,8 +61,8 @@ export class ProgressTaskComponent implements OnInit {
       console.log(this.doneId)
       this.statusUpdate();
     });
-
   }
+
   statusUpdate() {
     this.ToDoService.taskDoneApi({ "id": this.doneId, "status": 2 }).subscribe((result) => {
       console.log("id", this.doneId);
@@ -66,10 +70,12 @@ export class ProgressTaskComponent implements OnInit {
       this.getProgres();
     })
   }
+
   confirm(): void {
     this.message = 'Confirmed!';
     this.modalRef?.hide();
   }
+
   decline(): void {
     this.message = 'Declined!';
     this.modalRef?.hide();
@@ -81,20 +87,13 @@ export class ProgressTaskComponent implements OnInit {
       this.idNew2 = this.idNew.id
     })
   }
+
   editTask(data: any) {
     this.edittask = data.task_name;
     this.editDate = data.date
     this.ToDoService.editTaskApi({ "id": this.idNew2, "task_name": this.edittask, "date": this.editDate }).subscribe((result) => {
       this.getProgres();
-      this.log()
     })
   }
 
-  log() {
-    console.log('alert message closed');
-  }
-
-  renderDate(){
-    this.getProgres();
-  }
 }

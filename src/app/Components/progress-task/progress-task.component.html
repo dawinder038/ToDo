@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row">
-    <h3>Today's Task</h3>
-    <div class="col-md-4" *ngFor="let item of origData">
+  <div class="row" *ngFor="let list of array">
+    <h3>{{list.data==todayDate?"Today's Task ":list.data}}</h3>
+    <div class="col-md-4" *ngFor="let item of list.taskData">
       <div class="card mt-4">
         <div class="card-body">
           <h5 class="card-title" style="color:#fdc27d ;">{{item.task_name}}</h5>
