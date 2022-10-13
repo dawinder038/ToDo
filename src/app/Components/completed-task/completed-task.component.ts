@@ -1,5 +1,5 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
-import { esUsLocale } from 'ngx-bootstrap/chronos';
+import { ToastrService } from 'ngx-toastr';
 import { TodoServiceService } from '../../todo-service.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -13,18 +13,21 @@ export class CompletedTaskComponent implements OnInit {
   getData: any = "";
   origData: any = "";
   message?: string;
+  array:any;
+  todayDate:any;
 
-  constructor(private ToDoService: TodoServiceService,private modalService: BsModalService) { }
+  constructor(private ToDoService: TodoServiceService,private modalService: BsModalService,private toster:ToastrService) { }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
   ngOnInit(): void {
+    this.todayDate = new Date().toISOString().substring(0, 10);
     this.getCompletedData();
   }
 
   getCompletedData() {
     let payload = {
-      limit: 10,
+      limit: 20,
       start: 1,
       status: 2
     }
@@ -32,6 +35,7 @@ export class CompletedTaskComponent implements OnInit {
       console.log(result);
       this.getData = result;
       this.origData = this.getData.rows;
+      this.array=this.ToDoService.filterdata(this.origData);
     })
   }
   deleteTask(id: any) {
@@ -39,14 +43,18 @@ export class CompletedTaskComponent implements OnInit {
     this.ToDoService.deleteApi(id).subscribe((result) => {
       console.log(result);
       this.getCompletedData();
-    })
+    }) 
   }
   confirm(): void {
     this.message = 'Confirmed!';
     this.modalRef?.hide();
+    this.showDelete();
   }
   decline(): void {
     this.message = 'Declined!';
     this.modalRef?.hide();
+  }
+  showDelete(){
+    this.toster.success('Your Task is Deleted Successfully','DELETED!')
   }
 }

@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './Components/home/home.component';
 import { DeleteComponent } from './Components/delete/delete.component';
 import { AlertModule } from 'ngx-bootstrap/alert';
+import { ToastrModule } from 'ngx-toastr';
 
 const appRoutes:Routes=[
 ]
@@ -42,7 +43,8 @@ const appRoutes:Routes=[
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     ReactiveFormsModule ,
-    AlertModule.forRoot()
+    AlertModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

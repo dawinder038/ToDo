@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { TodoServiceService } from '../../todo-service.service';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-progress-task',
@@ -20,7 +21,7 @@ export class ProgressTaskComponent implements OnInit {
   idNew2: any;
   todayDate:any;
   array:any[]=[];
-  constructor(private ToDoService: TodoServiceService, private modalService: BsModalService) { }
+  constructor(private ToDoService: TodoServiceService, private modalService: BsModalService,private toster:ToastrService) { }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
@@ -41,7 +42,6 @@ export class ProgressTaskComponent implements OnInit {
       this.getData = result;
       this.origData = this.getData.rows;
       this.array=this.ToDoService.filterdata(this.origData);
-      this.statusUpdate();
     });
   }
 
@@ -60,6 +60,8 @@ export class ProgressTaskComponent implements OnInit {
       this.doneId = this.getDataById.id;
       console.log(this.doneId)
       this.statusUpdate();
+      this.showSuccess();
+    
     });
   }
 
@@ -74,6 +76,7 @@ export class ProgressTaskComponent implements OnInit {
   confirm(): void {
     this.message = 'Confirmed!';
     this.modalRef?.hide();
+    this.showDelete();
   }
 
   decline(): void {
@@ -95,5 +98,12 @@ export class ProgressTaskComponent implements OnInit {
       this.getProgres();
     })
   }
+  showSuccess() {
+    this.toster.success('your Task is Successfully Completed','Done!' );
+  }
 
+  showDelete(){
+    this.toster.success('Your Task is Deleted Successfully','DELETED!')
+  }
+  
 }

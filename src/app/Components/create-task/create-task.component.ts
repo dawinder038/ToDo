@@ -3,6 +3,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { TodoServiceService } from '../../todo-service.service';
 import { FormGroup,FormControl,Validators } from '@angular/forms';
 
+
 @Component({
   selector: 'app-create-task',
   templateUrl: './create-task.component.html',
@@ -14,7 +15,7 @@ export class CreateTaskComponent implements OnInit {
   modalRef?: BsModalRef;
   myForm!:FormGroup;
 
-  constructor(private modalService: BsModalService, private TodoService: TodoServiceService,) { }
+  constructor(private modalService: BsModalService, private TodoService: TodoServiceService) { }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
   }
@@ -32,6 +33,5 @@ this.myForm=new FormGroup({
       console.log(result);
       this.isOpen=true;
     })
-   
   }
 }

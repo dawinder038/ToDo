@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoServiceService } from '../../todo-service.service';
+
 @Component({
   selector: 'app-delete',
   templateUrl: './delete.component.html',
@@ -9,7 +10,7 @@ export class DeleteComponent implements OnInit {
   getData:any="";
   origData:any="";
 
-  constructor(private ToDoService:TodoServiceService) { }
+  constructor(private ToDoService:TodoServiceService, ) { }
 
   ngOnInit(): void {
     this.deleteTaskShow();
@@ -26,4 +27,5 @@ deleteTaskShow(){
     this.origData=this.getData.rows;
   })
 }
+
 }
